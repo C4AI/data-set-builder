@@ -7,15 +7,15 @@
 </head>
 <body>
     <header>
-      <h1>Employee Database</h1>
+      <h1>CRUD QA Database</h1>
     </header>
     <form action="/add" method="POST">
       <fieldset>
-        <h3>Add new employee</h3>
-        <label>Employee ID</label>
+        <h3>Add new question</h3>
+        <label>Question</label>
         <input type ="text" id = 'empID' name="id" required>
         <br><br>
-        <label>Name</label>
+        <label>Answer</label>
         <input type="text" id = "name" name="name" required>
         <br><br>
         <button type ="reset">Reset</button>
@@ -24,8 +24,8 @@
     </form>
     <form action="/view" method="POST">
         <fieldset>
-          <h3>View an employee</h3>
-          <label>Employee ID</label>
+          <h3>View a question</h3>
+          <label>Question</label>
           <input type="text" id="empID" name="id" required>
           <br><br>
           <button type ="reset">Reset</button>
@@ -35,11 +35,11 @@
        </form>
        <form action="/update" method="POST">
         <fieldset>
-          <h3>Update an employee</h3>
-          <label>Employee ID</label>
+          <h3>Update an question</h3>
+          <label>Question</label>
           <input type ="text" id = 'empID' name="id" required>
           <br><br>
-          <label>New Name</label>
+          <label>New Answer</label>
           <input type="text" id = "name" name="name" required>
           <br><br>
           <button type ="reset">Reset</button>
@@ -48,8 +48,8 @@
        </form>
       <form action="/delete" method="POST">
         <fieldset>
-          <h3>Delete an employee</h3>
-          <label>Employee ID</label>
+          <h3>Delete a question</h3>
+          <label>Question</label>
           <input type ="text" id = 'empID' name="id" required>
           <br><br>
           <button type ="reset">Reset</button>
@@ -59,7 +59,7 @@
       </form> 
       <footer>
         <hr>
-        <h4>Please enter 'http://localhost:3000/close' to close the   database connection before closing this window</h4>
+        <h4></h4>
       </footer>
     </body>
   </html>     

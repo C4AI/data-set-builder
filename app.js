@@ -14,7 +14,7 @@ const limiter = rateLimit({
 });
 
 
-var db = new sqlite3.Database('./database/employees.db');
+var db = new sqlite3.Database('./database/dataset.db');
 
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -35,8 +35,8 @@ app.post('/add', function(req,res){
         if (err) {
           return console.log(err.message);
         }
-        console.log("New employee has been added");
-        res.send("New employee has been added into the database with ID = "+req.body.id+ " and Name = "+req.body.name);
+        console.log("New question has been added");
+        res.send("New question has been added into the database with ID = "+req.body.id+ " and Answer = "+req.body.name);
       });
   });
   }); 
@@ -49,7 +49,7 @@ app.post('/view', function(req,res){
           res.send("Error encountered while displaying");
           return console.error(err.message);
         }
-        res.send(` ID: ${row.ID},    Name: ${row.NAME}`);
+        res.send(` Question: ${row.ID},    Answer: ${row.NAME}`);
         console.log("Entry displayed successfully");
       });
     });
