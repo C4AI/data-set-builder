@@ -7,9 +7,11 @@ var rateLimit = require("express-rate-limit");
 var app = express();
 var server = http.createServer(app);
 
+const connectionString = 'postgresql://postgres:123456@localhost:5432/data-set-builder'
+
 const { Pool } = require('pg');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.DATABASE_URL || connectionString ,
   ssl: {
     rejectUnauthorized: false
   }
