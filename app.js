@@ -23,6 +23,7 @@ const limiter = rateLimit({
 app.use(express.static(path.join(__dirname, './public')));
 app.use(helmet());
 app.use(limiter);
+app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, './public/form.html'));
