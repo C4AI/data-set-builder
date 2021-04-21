@@ -1,65 +1,68 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
+
 <head>
-  <meta charset = "UTF-8">
-  <link rel = "stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
   <title> My Form </title>
 </head>
+
 <body>
-    <header>
-      <h1>CRUD QA Database</h1>
-    </header>
-    <form action="/add" method="POST">
-      <fieldset>
-        <h3>Add new question</h3>
-        <label>Question</label>
-        <input type ="text" id = 'empID' name="id" required>
-        <br><br>
-        <label>Answer</label>
-        <input type="text" id = "name" name="name" required>
-        <br><br>
-        <button type ="reset">Reset</button>
-        <button type ="submit">Submit</button>
-      </fieldset>
-    </form>
-    <form action="/view" method="POST">
-        <fieldset>
-          <h3>View a question</h3>
-          <label>Question</label>
-          <input type="text" id="empID" name="id" required>
-          <br><br>
-          <button type ="reset">Reset</button>
-          <button type ="submit">Submit</button>
-          <br><br><br>
-        </fieldset>
-       </form>
-       <form action="/update" method="POST">
-        <fieldset>
-          <h3>Update an question</h3>
-          <label>Question</label>
-          <input type ="text" id = 'empID' name="id" required>
-          <br><br>
-          <label>New Answer</label>
-          <input type="text" id = "name" name="name" required>
-          <br><br>
-          <button type ="reset">Reset</button>
-          <button type ="submit">Submit</button>
-        </fieldset>
-       </form>
-      <form action="/delete" method="POST">
-        <fieldset>
-          <h3>Delete a question</h3>
-          <label>Question</label>
-          <input type ="text" id = 'empID' name="id" required>
-          <br><br>
-          <button type ="reset">Reset</button>
-          <button type ="submit">Submit</button>
-          <br><br><br>
-        </fieldset>
-      </form> 
-      <footer>
-        <hr>
-        <h4></h4>
-      </footer>
-    </body>
-  </html>     
+  <header>
+    <h1>CRUD QA Database</h1>
+  </header>
+  <form action="/add" method="POST">
+    <fieldset>
+      <h3>Add new question</h3>
+      <label>Question</label>
+      <input type="text" id='empID' name="id" required>
+      <br><br>
+      <label>Answer</label>
+      <input type="text" id="name" name="name" required>
+      <br><br>
+      <button type="reset">Reset</button>
+      <button type="submit">Submit</button>
+    </fieldset>
+  </form>
+  <form action="/view" method="GET">
+    <fieldset>
+      <h3>View a question</h3>
+      <label>Question</label>
+      <input type="text" id="empID" name="id" required>
+      <br><br>
+      <button type="reset">Reset</button>
+      <button type="submit">Submit</button>
+      <br><br><br>
+    </fieldset>
+  </form>
+  <form action="/update" method="PUT">
+    <fieldset>
+      <h3>Update an question</h3>
+      <label>Question</label>
+      <input type="text" id='empID' name="id" required>
+      <br><br>
+      <label>New Answer</label>
+      <input type="text" id="name" name="name" required>
+      <br><br>
+      <button type="reset">Reset</button>
+      <button type="submit">Submit</button>
+    </fieldset>
+  </form>
+  <form action="/delete" method="DELETE">
+    <fieldset>
+      <h3>Delete a question</h3>
+      <label>Question</label>
+      <input type="text" id='empID' name="id" required>
+      <br><br>
+      <button type="reset">Reset</button>
+      <button type="submit">Submit</button>
+      <br><br><br>
+    </fieldset>
+  </form>
+  <footer>
+    <hr>
+    <h4></h4>
+  </footer>
+</body>
+
+</html>
