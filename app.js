@@ -23,7 +23,6 @@ const limiter = rateLimit({
 app.use(express.static(path.join(__dirname, './public')));
 app.use(helmet());
 app.use(limiter);
-app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, './public/form.html'));
@@ -34,7 +33,7 @@ app.get('/db', async (req, res) => {
     const client = await pool.connect();
     const result = await client.query('SELECT * FROM user1');
     const results = { 'results': (result) ? result.rows : null};
-    res.render('pages/db', results );
+    res.send(results );
     client.release();
   } catch (err) {
     console.error(err);
