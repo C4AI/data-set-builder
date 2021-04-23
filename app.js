@@ -58,6 +58,7 @@ app.post('/user', async (req, res) => {
       .query('INSERT INTO user1(idUser,name, email, date) VALUES($1,$2,$3,$4)',
         [idUser, name, email, date]
       );
+    res.send(JSON.stringify(result));  
     client.release();
   } catch (err) {
     console.error(err);
