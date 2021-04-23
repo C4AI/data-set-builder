@@ -2,19 +2,22 @@ var express = require('express');
 var http = require('http');
 var path = require("path");
 var helmet = require('helmet');
-var rateLimit = require("express-rate-limit");
-
 var bodyParser = require('body-parser')
 var app = express()
 
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
 app.use(bodyParser.json())
+app.use(express.static(path.join(__dirname, './public')));
+app.use(helmet());
+
 var server = http.createServer(app);
 
 const connectionString = 'postgresql://postgres:123456@localhost:5432/data-set-builder'
+
+var porta = process.env.PORT || 8081;
+server.listen(porta, function () {
+  console.log("Server listening on port:" + porta);
+})
 
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -23,15 +26,6 @@ const pool = new Pool({
     rejectUnauthorized: false
   }
 });
-
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
-});
-
-app.use(express.static(path.join(__dirname, './public')));
-app.use(helmet());
-app.use(limiter);
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, './public/form.html'));
@@ -64,9 +58,4 @@ app.post('/user', async (req, res) => {
     console.error(err);
     res.send("Error " + err);
   }
-})
-
-var porta = process.env.PORT || 8081;
-server.listen(porta, function () {
-  console.log("Server listening on port:" + porta);
 })
