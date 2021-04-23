@@ -14,7 +14,7 @@ var server = http.createServer(app);
 
 const connectionString = 'postgresql://postgres:123456@localhost:5432/data-set-builder'
 
-var porta = process.env.PORT || 8081;
+var porta = process.env.PORT || 8082;
 server.listen(porta, function () {
   console.log("Server listening on port:" + porta);
 })
@@ -28,7 +28,7 @@ const pool = new Pool({
 });
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, './public/form.html'));
+  res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 app.get('/user', async (req, res) => {
