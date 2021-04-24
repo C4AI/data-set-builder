@@ -34,6 +34,26 @@ app.get('/', function (req, res) {
 app.get('/user', async (req, res) => {
   try {
     const client = await pool.connect();
+    const { email, idUser } = req.query;
+
+    const result = await client
+      .query('SELECT * from user1 where email = $1 and idUser = $2',
+        [email, idUser]);
+
+    result.rowCount == 1 ?
+    res.sendFile(path.join(__dirname, './public/question-answer.html')):
+    res.sendFile(path.join(__dirname, './public/user-not-found.html'));
+
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+app.get('/user/all', async (req, res) => {
+  try {
+    const client = await pool.connect();
     const result = await client.query('SELECT * FROM user1');
     const results = { 'results': (result) ? result.rows : null };
     res.send(results);
@@ -52,7 +72,7 @@ app.post('/user', async (req, res) => {
       .query('INSERT INTO user1(idUser,name, email, date) VALUES($1,$2,$3,$4)',
         [idUser, name, email, date]
       );
-    res.send(JSON.stringify(result));  
+    res.send(JSON.stringify(result));
     client.release();
   } catch (err) {
     console.error(err);

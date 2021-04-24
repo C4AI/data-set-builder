@@ -27,12 +27,11 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 </head>
-<body>
-	
+<body>	
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-				<form class="login100-form validate-form flex-sb flex-w">
+				<form class="login100-form validate-form flex-sb flex-w", action="/user" method="GET">
 					<span class="login100-form-title p-b-32">
 						Validação de dados
 					</span>
@@ -49,7 +48,7 @@
 						Número USP
 					</span>
 					<div class="wrap-input100 validate-input m-b-12" data-validate = "Número USP is required">
-						<input class="input100" type="number" name="number" >
+						<input class="input100" type="number" name="idUser" >
 						<span class="focus-input100"></span>
 					</div>
 					
@@ -59,21 +58,21 @@
 							<label class="label-checkbox100" for="ckb1">
 								Remember me
 							</label>
-						</div>
-
-						<div>
-							<a href="#" class="txt3">
-								Forgot Password?
-							</a>
 						</div>-->
+						<div>
+							<a href="https://docs.google.com/forms/d/e/1FAIpQLSe5mdzWHfFAIWO4iQ36XYTAiP9qqXB6sC8dfSTW-P9qJgcaZg/viewform?vc=0&c=0&w=1&flr=0&usp=mail_form_link" class="txt3">
+								Ainda não preencheu o formulário?
+							</a>
+						</div>
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button class="login100-form-btn", type="submit">
 							Entrar
 						</button>
-					</div>
 
+					</div>
+					
 				</form>
 			</div>
 		</div>
