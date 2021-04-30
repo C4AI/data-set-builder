@@ -67,10 +67,10 @@ app.get('/user/all', async (req, res) => {
 app.post('/user', async (req, res) => {
   try {
     const client = await pool.connect();
-    const { idUser, name, email, date } = req.body;
+    const { idUser, name, email, dateInsert, userAgreeTCLE } = req.body;
     const result = await client
-      .query('INSERT INTO user1(idUser,name, email, date) VALUES($1,$2,$3,$4)',
-        [idUser, name, email, date]
+      .query('INSERT INTO user1(idUser,name, email, dateInsert, userAgreeTCLE) VALUES($1,$2,$3,$4)',
+        [idUser, name, email, dateInsert, userAgreeTCLE]
       );
     res.send(JSON.stringify(result));
     client.release();
