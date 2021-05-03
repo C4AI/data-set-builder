@@ -41,8 +41,8 @@ app.get('/user', async (req, res) => {
         [email, idUser]);
 
     result.rowCount == 1 ?
-    res.sendFile(path.join(__dirname, './public/question-answer.html')):
-    res.sendFile(path.join(__dirname, './public/user-not-found.html'));
+    res.sendFile(path.join(__dirname, './public/3-instructions.html')):
+    res.sendFile(path.join(__dirname, './public/2-user-not-found.html'));
 
     client.release();
   } catch (err) {
