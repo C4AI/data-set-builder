@@ -59,6 +59,7 @@ app.get('/user', async (req, res) => {
   }
 })
 
+
 app.get('/user/all', async (req, res) => {
   try {
     const client = await pool.connect();
@@ -81,6 +82,62 @@ app.post('/user', async (req, res) => {
         [idUser, name, email, dateInsert, userAgreeTCLE]
       );
     res.send(JSON.stringify(result));
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+app.get('/abstract', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { idUser } = req.query;
+    const query1 = `
+    SELECT 
+      idarticle, 
+      abstract 
+    FROM article 
+    where idarticle in 
+      (select 
+        idarticle 
+        from 
+      view1 
+      where 
+        view = 1 and 
+        reject = 0 and 
+        skip = 0 and 
+        iduser = $1) 
+    LIMIT 1`;
+
+    const query2 = `
+    SELECT 
+      idarticle, 
+      abstract 
+    FROM article 
+    TABLESAMPLE SYSTEM(1) 
+    where idarticle not in 
+      (select 
+        idarticle 
+      from view1 
+      where 
+        view>0 or 
+        iduser=$1) 
+    LIMIT 1`
+
+    const result1 = await client
+      .query(query1,
+        [idUser]);
+
+    const result2 = await client
+      .query(query2,
+        [idUser]);
+
+    if (result1.rowCount == 1)
+      res.send(JSON.stringify(result1));
+    else
+      res.send(JSON.stringify(result2));
+
     client.release();
   } catch (err) {
     console.error(err);

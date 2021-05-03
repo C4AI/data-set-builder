@@ -32,7 +32,7 @@
   <!--===============================================================================================-->
 </head>
 
-<body>
+<body id="main">
   <div class="limiter">
     <div class="container-login100">
       <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
@@ -41,19 +41,17 @@
           <span class="login100-form-title p-b-32">
             Validação do Abstract
           </span>
-          
-          <div class="p-l-85 p-r-85 p-t-55 p-b-55">
-            <span id=idAbstract style="display:none">
-              $idAbstract
-            </span>
-            <span class="txt4 p-b-11" id=abstract>
-              $abstract
-            </span>
-          </div>
+
+          <span id=idarticle style="display:none">
+            $idarticle
+          </span>
+          <span class="txt4" id=abstract>
+            $abstract
+          </span>
 
           <div class="container-login100-form-btn">
             <a href=5-question-answer.html>
-              <button class="login100-form-btn" , type="button">
+              <button class="login100-form-btn" , id="btnAceitar" ,type="button">
                 Aceitar o artigo
               </button>
             </a>
@@ -74,8 +72,7 @@
               </span>
             </div>
             <div class="flex-sb-m w-full p-b-30 p-t-30">
-              <a href="8-instructions_2.html"
-                target="_blank" class="txt3">
+              <a href="8-instructions_2.html" target="_blank" class="txt3">
                 Acesse novamente as instruções se tiver alguma dúvida.
               </a>
             </div>
@@ -101,6 +98,8 @@
 <script src="vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
 <script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="js/4.js"></script>
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
 
