@@ -28,7 +28,7 @@ const pool = new Pool({
 });
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, './public/index.html'));
+  res.sendFile(path.join(__dirname, './public/1-login.html'));
 });
 
 app.get('/user', async (req, res) => {

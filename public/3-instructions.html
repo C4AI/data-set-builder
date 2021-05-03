@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
 	<title>Instructions</title>
@@ -38,7 +38,7 @@
 					<span class="login100-form-title p-b-32">
 						Instruções </span>
 
-					<div class="flex-sb-m w-full p-b-100">
+					<div class="flex-sb-m w-full p-b-10">
 						<div class="txt3">
 							<ul>
 								<li>
@@ -69,8 +69,17 @@
 									envolvem explicações.
 								</li>
 							</ul>
-							<div class="container-login100-form-btn">
-								<button class="login100-form-btn" , type="submit">
+							<div class="flex-sb-m w-full p-t-10">
+								<div class="contact100-form-checkbox validate-input"
+									data-validate="This field is required">
+									<input class="input-checkbox100" id="ckb1" type="checkbox" name="agree">
+									<label class="label-checkbox100" for="ckb1">
+										Li e concordo com as instruções acima.
+									</label>
+								</div>
+
+								<button class="login100-form-btn" , type="button" 
+								onclick="return testcheck()">
 									Iniciar
 								</button>
 							</div>
@@ -79,8 +88,6 @@
 			</div>
 		</div>
 	</div>
-
-	<div id="dropDownSelect1"></div>
 
 	<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -98,6 +105,9 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<!--===============================================================================================-->
+	<script src="js/3.js"></script>
+
 
 </body>
 
