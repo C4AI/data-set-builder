@@ -1,3 +1,6 @@
+/////////////////////////////NODEJS-SERVER-SIDE//////////////////////////////////
+
+//////////////////////////////IMPORTS////////////////////////////////////////////
 var express = require('express');
 var http = require('http');
 var path = require("path");
@@ -20,12 +23,14 @@ app.use(helmet());
 
 var server = http.createServer(app);
 
-const connectionString = 'postgresql://postgres:123456@localhost:5432/data-set-builder'
-
+///////////////////////////////PORTA/////////////////////////////////////////////
 var porta = process.env.PORT || 8082;
 server.listen(porta, function () {
   console.log("Server listening on port:" + porta);
 })
+
+///////////////////////////////DATABASE//////////////////////////////////////////
+const connectionString = 'postgresql://postgres:123456@localhost:5432/data-set-builder'
 
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -35,10 +40,12 @@ const pool = new Pool({
   }
 });
 
+////////////////////////////////INICIAL//////////////////////////////////////////
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, './public/1-login.html'));
 });
 
+////////////////////////////////USER/////////////////////////////////////////////
 app.get('/user', async (req, res) => {
   try {
     const client = await pool.connect();
@@ -50,20 +57,6 @@ app.get('/user', async (req, res) => {
 
     res.send(JSON.stringify(result));
 
-    client.release();
-  } catch (err) {
-    console.error(err);
-    res.send("Error " + err);
-  }
-})
-
-
-app.get('/user/all', async (req, res) => {
-  try {
-    const client = await pool.connect();
-    const result = await client.query('SELECT * FROM user1');
-    const results = { 'results': (result) ? result.rows : null };
-    res.send(results);
     client.release();
   } catch (err) {
     console.error(err);
@@ -87,6 +80,20 @@ app.post('/user', async (req, res) => {
   }
 })
 
+app.get('/user/all', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT * FROM user1');
+    const results = { 'results': (result) ? result.rows : null };
+    res.send(results);
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+////////////////////////////////ABSTRACT/////////////////////////////////////////////
 app.get('/abstract', async (req, res) => {
   try {
     const client = await pool.connect();
@@ -107,6 +114,7 @@ app.get('/abstract', async (req, res) => {
         skip = 0 and 
         iduser = $1) 
     LIMIT 1`;
+    // and answer<3
 
     const query2 = `
     SELECT 
@@ -115,26 +123,88 @@ app.get('/abstract', async (req, res) => {
     FROM article 
     TABLESAMPLE SYSTEM(1) 
     where idarticle not in 
-      (select 
-        idarticle 
-      from view1 
-      where 
-        view>0 or 
-        iduser=$1) 
+    (select 
+      idarticle 
+      from 
+    view1 
+    where
+      iduser != $1 or
+      
+      (view = 1 and 
+      reject = 0 and 
+      skip = 0) 
+    )        
     LIMIT 1`
+    // or answer>=3
+
+    const query3 = `
+    INSERT INTO view1(
+      date, view, skip, reject, iduser, idarticle)
+      VALUES ((SELECT CURRENT_DATE), 1, 0, 0, $1, $2);`;
 
     const result1 = await client
       .query(query1,
         [idUser]);
 
-    const result2 = await client
-      .query(query2,
-        [idUser]);
-
     if (result1.rowCount == 1)
       res.send(JSON.stringify(result1));
-    else
+    else {
+      const result2 = await client
+        .query(query2,
+          [idUser]);
+
+      const idArticle = result2.rows[0].idarticle;
+
+      const result3 = await client
+        .query(query3,
+          [idUser, idArticle]);
+
       res.send(JSON.stringify(result2));
+    }
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+app.post('/abstract/reject', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { idUser, idArticle } = req.body;
+    const query = `
+    UPDATE view1
+  	SET reject= reject + 1
+	  WHERE iduser = $1 and idarticle = $2;`;
+
+    const result = await client
+      .query(query,
+        [idUser, idArticle]);
+
+    res.send(JSON.stringify(result));
+
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+
+app.post('/abstract/skip', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { idUser, idArticle } = req.body;
+    const query = `
+    UPDATE view1
+  	SET skip= skip + 1
+	  WHERE iduser = $1 and idarticle = $2;`;
+
+    const result = await client
+      .query(query,
+        [idUser, idArticle]);
+
+    res.send(JSON.stringify(result));
 
     client.release();
   } catch (err) {

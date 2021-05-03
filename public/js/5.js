@@ -19,14 +19,14 @@
     });
   });
 
-  $('#btnRejeitar').on("click", function () {
+  $('#btnPular').on("click", function () {
 
     const idUser = testUser();
     const idArticle = $("#idarticle").text()
-   
+
     $.ajax({
       type: 'POST',
-      url: '/abstract/reject',
+      url: '/abstract/skip',
       data: { 'idUser': idUser, 'idArticle': idArticle },
       dataType: 'json',
       success: function (response) {
@@ -39,22 +39,4 @@
     });
   });
 
-  $('#btnAceitou').on("click", function () {
-
-    const idUser = testUser();
-    const idArticle = $("#idarticle").text()
-    window.location.href = './5-question-answer.html'
-
-  });
-
-  function testUser(){
-    const localStorage = window.localStorage
-    const idUser = localStorage.getItem('idUser')
-    if (idUser==null || idUser.trim().length==0){
-      window.location.href = './1-login.html'
-      throw new Error('No user found');
-    }
-    else 
-      return idUser;
-}
 })(jQuery);
