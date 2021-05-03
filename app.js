@@ -48,9 +48,7 @@ app.get('/user', async (req, res) => {
       .query('SELECT * from user1 where email = $1 and idUser = $2',
         [email, idUser]);
 
-    result.rowCount == 1 ?
-    res.sendFile(path.join(__dirname, './public/3-instructions.html')):
-    res.sendFile(path.join(__dirname, './public/2-user-not-found.html'));
+    res.send(JSON.stringify(result));
 
     client.release();
   } catch (err) {
