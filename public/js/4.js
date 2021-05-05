@@ -1,11 +1,11 @@
 (function ($) {
   "use strict";
   $(window).one("load", function () {
-    const idUser = testUser();
+    const iduser = testUser();
     $.ajax({
       type: 'GET',
       url: '/abstract',
-      data: { 'idUser': idUser },
+      data: { 'iduser': iduser },
       dataType: 'json',
       success: function (response) {
         console.log(response)
@@ -21,13 +21,13 @@
 
   $('#btnRejeitar').on("click", function () {
 
-    const idUser = testUser();
+    const iduser = testUser();
     const idArticle = $("#idarticle").text()
    
     $.ajax({
       type: 'POST',
       url: '/abstract/reject',
-      data: { 'idUser': idUser, 'idArticle': idArticle },
+      data: { 'iduser': iduser, 'idArticle': idArticle },
       dataType: 'json',
       success: function (response) {
         console.log(response)
@@ -41,7 +41,7 @@
 
   $('#btnAceitou').on("click", function () {
 
-    const idUser = testUser();
+    const iduser = testUser();
     const idArticle = $("#idarticle").text()
     window.location.href = './5-question-answer.html'
 
@@ -49,12 +49,12 @@
 
   function testUser(){
     const localStorage = window.localStorage
-    const idUser = localStorage.getItem('idUser')
-    if (idUser==null || idUser.trim().length==0){
+    const iduser = localStorage.getItem('iduser')
+    if (iduser==null || iduser.trim().length==0){
       window.location.href = './1-login.html'
       throw new Error('No user found');
     }
     else 
-      return idUser;
+      return iduser;
 }
 })(jQuery);

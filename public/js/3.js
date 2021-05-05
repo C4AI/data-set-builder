@@ -17,12 +17,12 @@
     }
     function testUser(){
         const localStorage = window.localStorage
-        const idUser = localStorage.getItem('idUser')
-        if (idUser==null || idUser.trim().length==0){
+        const iduser = localStorage.getItem('iduser')
+        if (iduser==null || iduser.trim().length==0){
           window.location.href = './1-login.html'
           throw new Error('No user found');
         }
         else 
-          return idUser;
+          return iduser;
     }
 })(jQuery);

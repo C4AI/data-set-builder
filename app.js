@@ -49,11 +49,11 @@ app.get('/', function (req, res) {
 app.get('/user', async (req, res) => {
   try {
     const client = await pool.connect();
-    const { email, idUser } = req.query;
+    const { email, iduser } = req.query;
 
     const result = await client
-      .query('SELECT * from user1 where email = $1 and idUser = $2',
-        [email, idUser]);
+      .query('SELECT * from user1 where email = $1 and iduser = $2',
+        [email, iduser]);
 
     res.send(JSON.stringify(result));
 
@@ -67,10 +67,10 @@ app.get('/user', async (req, res) => {
 app.post('/user', async (req, res) => {
   try {
     const client = await pool.connect();
-    const { idUser, name, email, dateInsert, userAgreeTCLE } = req.body;
+    const { iduser, name, email, dateInsert, userAgreeTCLE } = req.body;
     const result = await client
-      .query('INSERT INTO user1(idUser,name, email, dateInsert, userAgreeTCLE) VALUES($1,$2,$3,$4)',
-        [idUser, name, email, dateInsert, userAgreeTCLE]
+      .query('INSERT INTO user1(iduser,name, email, dateinsert, useragreetlce) VALUES($1,$2,$3,$4,$5)',
+        [iduser, name, email, dateInsert, userAgreeTCLE]
       );
     res.send(JSON.stringify(result));
     client.release();
@@ -97,7 +97,7 @@ app.get('/user/all', async (req, res) => {
 app.get('/abstract', async (req, res) => {
   try {
     const client = await pool.connect();
-    const { idUser } = req.query;
+    const { iduser } = req.query;
     const query1 = `
     SELECT 
       idarticle, 
@@ -111,10 +111,10 @@ app.get('/abstract', async (req, res) => {
       where 
         view = 1 and 
         reject = 0 and 
-        skip = 0 and 
-        iduser = $1) 
+        skip = 0 and
+        answer<3 and
+      iduser = $1) 
     LIMIT 1`;
-    // and answer<3
 
     const query2 = `
     SELECT 
@@ -129,35 +129,35 @@ app.get('/abstract', async (req, res) => {
     view1 
     where
       iduser != $1 or
-      
+       answer>=3 or
       (view = 1 and 
-      reject = 0 and 
-      skip = 0) 
+      reject = 0 and
+      skip = 0)  or 
+      reject = 1
     )        
     LIMIT 1`
-    // or answer>=3
 
     const query3 = `
     INSERT INTO view1(
-      date, view, skip, reject, iduser, idarticle)
-      VALUES ((SELECT CURRENT_DATE), 1, 0, 0, $1, $2);`;
+      date, view, skip, reject, iduser, idarticle, answer)
+      VALUES ((SELECT CURRENT_DATE), 1, 0, 0, $1, $2, 0);`;
 
     const result1 = await client
       .query(query1,
-        [idUser]);
+        [iduser]);
 
-    if (result1.rowCount == 1)
+    if (result1.rowCount === 1)
       res.send(JSON.stringify(result1));
     else {
       const result2 = await client
         .query(query2,
-          [idUser]);
+          [iduser]);
 
       const idArticle = result2.rows[0].idarticle;
 
-      const result3 = await client
+     await client
         .query(query3,
-          [idUser, idArticle]);
+          [iduser, idArticle]);
 
       res.send(JSON.stringify(result2));
     }
@@ -171,7 +171,7 @@ app.get('/abstract', async (req, res) => {
 app.post('/abstract/reject', async (req, res) => {
   try {
     const client = await pool.connect();
-    const { idUser, idArticle } = req.body;
+    const { iduser, idArticle } = req.body;
     const query = `
     UPDATE view1
   	SET reject= reject + 1
@@ -179,7 +179,7 @@ app.post('/abstract/reject', async (req, res) => {
 
     const result = await client
       .query(query,
-        [idUser, idArticle]);
+        [iduser, idArticle]);
 
     res.send(JSON.stringify(result));
 
@@ -190,11 +190,10 @@ app.post('/abstract/reject', async (req, res) => {
   }
 })
 
-
 app.post('/abstract/skip', async (req, res) => {
   try {
     const client = await pool.connect();
-    const { idUser, idArticle } = req.body;
+    const { iduser, idArticle } = req.body;
     const query = `
     UPDATE view1
   	SET skip= skip + 1
@@ -202,7 +201,52 @@ app.post('/abstract/skip', async (req, res) => {
 
     const result = await client
       .query(query,
-        [idUser, idArticle]);
+        [iduser, idArticle]);
+
+    res.send(JSON.stringify(result));
+
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+app.post('/question-answer', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { questionen, answeren, questionpt, answerpt, iduser, idarticle } = req.body;
+    const query1 = `
+      INSERT INTO questionanswer(questionen, answeren, questionpt, answerpt,
+        date, iduser, idarticle)
+      VALUES ($1 ,$2, $3, $4,
+              (SELECT CURRENT_DATE), $5, $6); `;
+
+    const result = await client
+        .query(query1,
+            [questionen, answeren, questionpt, answerpt,
+              iduser, idarticle]);
+
+    res.send(JSON.stringify(result));
+
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+app.get('/question-answer/count', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { iduser, idarticle } = req.query;
+
+    const query = `
+      SELECT COUNT(*) as nquestions FROM questionanswer
+      WHERE iduser =$1 AND idarticle = $2; `;
+
+    const result = await client
+        .query(query,
+            [iduser, idarticle]);
 
     res.send(JSON.stringify(result));
 

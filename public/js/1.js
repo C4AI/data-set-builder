@@ -58,20 +58,20 @@
     // Get some values from elements on the page:
     var $form = $(form),
       email = $form.find("input[name='email']").val(),
-      idUser = $form.find("input[name='idUser']").val(),
+      iduser = $form.find("input[name='iduser']").val(),
       url = "/user"
 
     $.ajax({
       type: 'GET',
       url: url,
-      data: { 'idUser': idUser, 'email': email },
+      data: { 'iduser': iduser, 'email': email },
       dataType: 'json',
       success: function (response) {
         console.log(response)
         var rowCount = response.rowCount;
         const localStorage = window.localStorage
         if (rowCount == 1) {
-          localStorage.setItem('idUser', idUser)
+          localStorage.setItem('iduser', iduser)
           localStorage.setItem('email', email)
           window.location.href = './3-instructions.html';
         }

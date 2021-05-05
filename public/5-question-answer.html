@@ -1,125 +1,116 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<!DOCTYPE html>
-<html lang="pt-br">
-
 <head>
-  <title>Question-Answer Form</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!--===============================================================================================-->
-  <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-  <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="css/util.css">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
-  <!--===============================================================================================-->
+    <title>Question-Answer Form</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <!--===============================================================================================-->
+    <link href="images/icons/favicon.ico" rel="icon" type="image/png"/>
+    <!--===============================================================================================-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!--===============================================================================================-->
+    <link href="fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!--===============================================================================================-->
+    <link href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css" rel="stylesheet" type="text/css">
+    <!--===============================================================================================-->
+    <link href="vendor/animate/animate.css" rel="stylesheet" type="text/css">
+    <!--===============================================================================================-->
+    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" type="text/css">
+    <!--===============================================================================================-->
+    <link href="vendor/animsition/css/animsition.min.css" rel="stylesheet" type="text/css">
+    <!--===============================================================================================-->
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" type="text/css">
+    <!--===============================================================================================-->
+    <link href="vendor/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css">
+    <!--===============================================================================================-->
+    <link href="css/util.css" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <!--===============================================================================================-->
 </head>
 
-<body>
-  <div class="limiter">
+<body id="bQA">
+<div class="limiter">
     <div class="container-login100">
-      <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-        <form class="login100-form validate-form flex-sb flex-w">
+        <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+            <form class="login100-form validate-form flex-sb flex-w">
 
           <span class="login100-form-title p-b-32">
             Preenchimento das perguntas e respostas
           </span>
-
-          <div class="p-l-85 p-r-85 p-t-55 p-b-55">
-            <span id=idarticle style="display:none">
-              $idarticle
-            </span>
-            <span class="txt4 p-b-11" id=abstract>
-              $abstract
-            </span>
-          </div>
-          <div class="txt4 p-b-11" >
+           <span id=idarticle style="display:none">
+            $idarticle
+          </span>
+           <span class="txt4" id=abstract>
+            $abstract
+          </span>
+           <div class="txt4 p-b-11">
             <span>
               Essa é a pergunta número
             </span>
-            <span id=questionUserTotal>
-              $n/
+           <span id=nquestions>
+              $n
             </span>
-            <span id=questionTotal>
-              $t
+           <span id=ntotal>
+              / 03
             </span>
             <span>
               referente a esse mesmo abstract.
             </span>
-          </div>
-          <span class="txt1 p-b-11">
+           </div>
+           <span class="txt1 p-b-11">
             Desenvolva a pergunta em inglês
           </span>
 
-          <div class="wrap-input100 validate-input m-b-36" data-validate="This field is required">
-            <textarea class="input100 height-100" type="text" name="question1EN"> </textarea>
-            <span class="focus-input100"></span>
-          </div>
+                <div class="wrap-input100 validate-input m-b-36" data-validate="This field is required">
+                    <textarea class="input100 height-100" id="questionen" type="text"> </textarea>
+                    <span class="focus-input100"></span>
+                </div>
 
-          <span class="txt1 p-b-11">
+                <span class="txt1 p-b-11">
             Traduza a pergunta para o português
           </span>
 
-          <div class="wrap-input100 validate-input m-b-36" data-validate="This field is required">
-            <textarea class="input100 height-100" type="text" name="question1PT"></textarea>
-            <span class="focus-input100"></span>
-          </div>
+                <div class="wrap-input100 validate-input m-b-36" data-validate="This field is required">
+                    <textarea class="input100 height-100" id="questionpt" type="text"></textarea>
+                    <span class="focus-input100"></span>
+                </div>
 
-          <span class="txt1 p-b-11">
+                <span class="txt1 p-b-11">
             Responda a pergunta com um trecho do texto em inglês
           </span>
 
-          <div class="wrap-input100 validate-input m-b-36" data-validate="This field is required">
-            <textarea class="input100 height-100" type="text" name="question1PT"></textarea>
-            <span class="focus-input100"></span>
-          </div>
+                <div class="wrap-input100 validate-input m-b-36" data-validate="This field is required">
+                    <textarea class="input100 height-100" id="answeren" type="text"></textarea>
+                    <span class="focus-input100"></span>
+                </div>
 
-          <span class="txt1 p-b-11">
+                <span class="txt1 p-b-11">
             Traduza a sua resposta a pergunta para o português
           </span>
 
-          <div class="wrap-input100 validate-input m-b-36" data-validate="This field is required">
-            <textarea class="input100 height-100" type="text" name="question1PT"></textarea>
-            <span class="focus-input100"></span>
-          </div>
+                <div class="wrap-input100 validate-input m-b-36" data-validate="This field is required">
+                    <textarea class="input100 height-100" id="answerpt" type="text"></textarea>
+                    <span class="focus-input100"></span>
+                </div>
 
-          <div class="container-login100-form-btn">
-            <button class="login100-form-btn" , type="submit">
-              Enviar respostas
-            </button>
-            <a href="4-abstract.html">
-              <button class="login100-form-btn" , type="button">
-                Pular o artigo
-              </button>
-            </a>
-          </div>
-          <div class="flex-sb-m w-full p-b-30 p-t-30">
-            <a href="8-instructions_2.html"
-              target="_blank" class="txt3">
-              Acesse novamente as instruções se tiver alguma dúvida.
-            </a>
-          </div>
-        </form>
-      </div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" id="btnEnviar" type="button">
+                        Enviar respostas
+                    </button>
+                    <button class="login100-form-btn" id="btnPular" type="button">
+                        Próximo artigo
+                    </button>
+                </div>
+                <div class="flex-sb-m w-full p-b-30 p-t-30">
+                    <a class="txt3" href="8-instructions_2.html" target="_blank">
+                        Acesse novamente as instruções se tiver alguma dúvida.
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
+</div>
 
 </body>
 
@@ -138,6 +129,6 @@
 <!--===============================================================================================-->
 <script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-<script src="js/main.js"></script>
+<script src="js/5.js"></script>
 
 </html>
