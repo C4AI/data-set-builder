@@ -157,6 +157,7 @@ iframe {
   font-size: 13px;
   color: #555555;
   line-height: 1.4;
+  text-align: justify;
   text-transform: uppercase;
 }
 
@@ -164,6 +165,7 @@ iframe {
   font-family: Raleway-Regular;
   font-size: 13px;
   color: #999999;
+  text-align: justify;
   line-height: 1.4;
 }
 
@@ -171,6 +173,8 @@ iframe {
   font-family: Raleway-Regular;
   font-size: 13px;
   color: #555555;
+  text-align: justify;
+
   line-height: 1.4;
 }
 .txt4 {
@@ -181,6 +185,11 @@ iframe {
   text-align: justify;
   margin-bottom: 10px;
   
+}
+
+table, th, td {
+  text-align: center;
+  border: 1px dotted;
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -258,7 +267,7 @@ iframe {
   display: block;
   width: 100%;
   background: transparent;
-  padding: 5 25px 5 25px;
+  padding: 5px 25px 5px 25px;
 }
 
 .height-50 {
