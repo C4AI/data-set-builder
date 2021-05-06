@@ -98,44 +98,39 @@ app.get('/abstract', async (req, res) => {
   try {
     const client = await pool.connect();
     const { iduser } = req.query;
-    const query1 = `
-    SELECT 
-      idarticle, 
-      abstract 
-    FROM article 
-    where idarticle in 
-      (select 
-        idarticle 
-        from 
-      view1 
-      where 
-        view = 1 and 
+
+    const query1 = `    
+    SELECT
+      ar.idarticle, 
+	  title,
+      abstract, 
+	  answer
+    FROM article as ar
+	inner join view1 as vi
+	on ar.idarticle = vi.idarticle
+	where view = 1 and
         reject = 0 and 
         skip = 0 and
-        answer<3 and
-      iduser = $1) 
-    LIMIT 1`;
+		answer<3 and 
+		iduser = $1
+	LIMIT 1;`
 
     const query2 = `
     SELECT 
-      idarticle, 
-      abstract 
-    FROM article 
-    TABLESAMPLE SYSTEM(1) 
-    where idarticle not in 
-    (select 
-      idarticle 
-      from 
-    view1 
-    where
-      iduser != $1 or
-       answer>=3 or
-      (view = 1 and 
-      reject = 0 and
-      skip = 0)  or 
-      reject = 1
-    )        
-    LIMIT 1`
+      ar.idarticle, 
+	  title,
+      abstract,
+	  vi.answer
+    FROM article as ar
+	TABLESAMPLE SYSTEM(1) 
+	left join view1 as vi
+	on ar.idarticle = vi.idarticle
+	where 
+	vi.idarticle is null or (
+    vi.iduser!=$1 and 
+	vi.reject=0 and
+	vi.answer<3 )
+	LIMIT 1;`
 
     const query3 = `
     INSERT INTO view1(
