@@ -21,47 +21,46 @@
       }
     });
   });
-/**
-  $(window).ajaxComplete (function () {
-    const localStorage = window.localStorage
-    const iduser = testUser();
-    const idarticle = localStorage.getItem('idarticle')
+//////////////////////////////////////////////////////////////////////////////////
 
-    $.ajax({
-      type: 'GET',
-      url: '/question-answer/count',
-      data: { 'iduser': iduser, 'idarticle': idarticle },
-      dataType: 'json',
-      success: function (response) {
-        console.log(response)
-        const { nquestions } = parseInt( response.rows[0].nquestions);
-        $("#nquestions").empty().append(nquestions+1);
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
-      }
-    });
-  }); 
-**/
+  /*==================================================================
+[ Validate ]*/
+  var input = $('.validate-input .input100');
+
   $('#btnEnviar').on("click", function () {
+    var check = true;
 
+    for (var i = 0; i < input.length; i++) {
+      if (validate(input[i]) === false) {
+        showValidate(input[i]);
+        check = false;
+      }
+    }
+
+    if (check) {
+      saveQA()
+    }
+    return check;
+
+  });
+  function saveQA () {
     const iduser = testUser();
     const idarticle = $("#idarticle").text()
-    const questionen   = $("#questionen").val()
-    const answeren     = $("#answeren").val()
-    const questionpt   = $("#questionpt").val()
-    const answerpt     = $("#answerpt").val()    
-    
+    const questionen = $("#questionen").val()
+    const answeren = $("#answeren").val()
+    const questionpt = $("#questionpt").val()
+    const answerpt = $("#answerpt").val()
+
     $.ajax({
       type: 'POST',
       url: '/question-answer/',
       data: {
-        'iduser':iduser,                 
-        'idarticle':idarticle,        
-        'questionen':questionen,       
-        'answeren':answeren,      
-        'questionpt':questionpt,      
-        'answerpt':answerpt     
+        'iduser': iduser,
+        'idarticle': idarticle,
+        'questionen': questionen,
+        'answeren': answeren,
+        'questionpt': questionpt,
+        'answerpt': answerpt
       },
       dataType: 'json',
       success: function (response) {
@@ -72,8 +71,7 @@
         console.log(textStatus, errorThrown);
       }
     });
-  });
-
+  }
   $('#btnPular').on("click", function () {
 
     const iduser = testUser();
@@ -94,16 +92,46 @@
     });
   });
 
-
   function testUser(){
     const localStorage = window.localStorage
     const iduser = localStorage.getItem('iduser')
-    if (iduser==null || iduser.trim().length==0){
+    if (iduser==null || iduser.trim().length===0){
       window.location.href = './1-login.html'
       throw new Error('No user found');
     }
     else 
       return iduser;
-}
+  }
+
+  $('.validate-form .input100').each(function () {
+    $(this).focus(function () {
+      hideValidate(this);
+    });
+  });
+
+  function validate(input) {
+    if ($(input).attr('type') === 'email' || $(input).attr('name') === 'email') {
+      if ($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
+        return false;
+      }
+    }
+    else {
+      if ($(input).val().trim() === '') {
+        return false;
+      }
+    }
+  }
+
+  function showValidate(input) {
+    var thisAlert = $(input).parent();
+
+    $(thisAlert).addClass('alert-validate');
+  }
+
+  function hideValidate(input) {
+    var thisAlert = $(input).parent();
+
+    $(thisAlert).removeClass('alert-validate');
+  }
 
 })(jQuery);
