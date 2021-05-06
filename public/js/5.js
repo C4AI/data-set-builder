@@ -10,9 +10,10 @@
       dataType: 'json',
       success: function (response) {
         console.log(response)
-        const {abstract, idarticle} = response.rows[0];
+        const {abstract, idarticle, nquestions} = response.rows[0];
         $("#idarticle").empty().append(idarticle);
         $("#abstract").empty().append(abstract);
+        $("#nquestions").empty().append(nquestions);
         localStorage.setItem('idarticle', response.rows[0].idarticle);
       },
       error: function (jqXHR, textStatus, errorThrown) {

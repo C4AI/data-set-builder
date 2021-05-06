@@ -104,7 +104,7 @@ app.get('/abstract', async (req, res) => {
       ar.idarticle, 
 	  title,
       abstract, 
-	  answer
+	  answer+1 as nquestions
     FROM article as ar
 	inner join view1 as vi
 	on ar.idarticle = vi.idarticle
@@ -120,7 +120,7 @@ app.get('/abstract', async (req, res) => {
       ar.idarticle, 
 	  title,
       abstract,
-	  vi.answer
+	  vi.answer+1 as nquestions
     FROM article as ar
 	TABLESAMPLE SYSTEM(1) 
 	left join view1 as vi
