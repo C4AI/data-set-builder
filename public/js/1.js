@@ -5,11 +5,11 @@
   [ Validate ]*/
   var input = $('.validate-input .input100');
 
-  $('.validate-form').on('submit', function () {
+  $('#login-btn').on('click', function () {
     var check = true;
 
     for (var i = 0; i < input.length; i++) {
-      if (validate(input[i]) == false) {
+      if (validate(input[i]) === false) {
         showValidate(input[i]);
         check = false;
       }
@@ -30,13 +30,13 @@
   });
 
   function validate(input) {
-    if ($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
+    if ($(input).attr('type') === 'email' || $(input).attr('name') === 'email') {
       if ($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
         return false;
       }
     }
     else {
-      if ($(input).val().trim() == '') {
+      if ($(input).val().trim() === '') {
         return false;
       }
     }
@@ -57,8 +57,8 @@
   function validateUser(form) {
     // Get some values from elements on the page:
     var $form = $(form),
-      email = $form.find("input[name='email']").val(),
-      iduser = $form.find("input[name='iduser']").val(),
+      email = $("#email").val(),
+      iduser = $("#iduser").val(),
       url = "/user"
 
     $.ajax({
@@ -70,7 +70,7 @@
         console.log(response)
         var rowCount = response.rowCount;
         const localStorage = window.localStorage
-        if (rowCount == 1) {
+        if (rowCount === 1) {
           localStorage.setItem('iduser', iduser)
           localStorage.setItem('email', email)
           window.location.href = './3-instructions.html';
