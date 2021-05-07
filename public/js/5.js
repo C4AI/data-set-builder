@@ -2,7 +2,6 @@
   "use strict";
   $(window).one("load", function () {
     const iduser = testUser();
-    const localStorage = window.localStorage
     $.ajax({
       type: 'GET',
       url: '/abstract',
@@ -16,7 +15,6 @@
         $("#idarticle").empty().append(idarticle);
         $("#abstract").empty().append(abstract);
         $("#nquestions").empty().append(nquestions);
-        localStorage.setItem('idarticle', response.rows[0].idarticle);
       },
       error : function(jqXHR, xhr, textStatus, errorThrown ) {
         if (textStatus !== '') {
