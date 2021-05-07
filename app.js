@@ -64,6 +64,36 @@ app.get('/user', async (req, res) => {
   }
 })
 
+app.get('/user/review', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { iduser } = req.query;
+
+    const query =`
+        SELECT
+        u.iduser as iduser,
+        u.email as email,
+        sum(v.view) as sumview,
+        sum(v.skip) as sumskip,
+        sum(v.reject) as sumreject,
+        sum(v.answer) as sumanswer
+    FROM user1 as u
+    natural join view1 as v
+    where iduser = $1
+    group by u.iduser, u.email`;
+
+    const result = await client
+        .query(query,[iduser]);
+
+    res.send(JSON.stringify(result));
+
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
 app.post('/user', async (req, res) => {
   try {
     const client = await pool.connect();
@@ -221,27 +251,6 @@ app.post('/question-answer', async (req, res) => {
         .query(query1,
             [questionen, answeren, questionpt, answerpt,
               iduser, idarticle]);
-
-    res.send(JSON.stringify(result));
-
-    client.release();
-  } catch (err) {
-    console.error(err);
-    res.send("Error " + err);
-  }
-})
-app.get('/question-answer/count', async (req, res) => {
-  try {
-    const client = await pool.connect();
-    const { iduser, idarticle } = req.query;
-
-    const query = `
-      SELECT COUNT(*) as nquestions FROM questionanswer
-      WHERE iduser =$1 AND idarticle = $2; `;
-
-    const result = await client
-        .query(query,
-            [iduser, idarticle]);
 
     res.send(JSON.stringify(result));
 
