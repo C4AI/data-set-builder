@@ -240,6 +240,7 @@ app.post('/abstract/skip', async (req, res) => {
   }
 })
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 app.post('/question-answer', async (req, res) => {
   try {
     const client = await pool.connect();
@@ -254,6 +255,76 @@ app.post('/question-answer', async (req, res) => {
         .query(query1,
             [questionen, answeren, questionpt, answerpt,
               iduser, idarticle]);
+
+    res.send(JSON.stringify(result));
+
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+app.get('/question-answer', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { iduser, idqa } = req.body;
+    const query = `
+    SELECT * 
+    FROM questionanswer
+	WHERE iduser = $1 and idqa = $2`;
+
+    const result = await client
+        .query(query,
+            [iduser, idqa]);
+
+    res.send(JSON.stringify(result));
+
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+app.get('/question-answer/article', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { iduser, idarticle } = req.body;
+    const query = `
+    SELECT idqa 
+    FROM questionanswer
+	WHERE iduser = $1 and idarticle = $2`;
+
+    const result = await client
+        .query(query,
+            [iduser, idarticle]);
+
+    res.send(JSON.stringify(result));
+
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+app.get('/question-answer/article/all', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { iduser } = req.body;
+    const query = `
+    SELECT
+    distinct q.idarticle,
+             a.title
+    FROM questionanswer as q
+    inner join article as a
+    on a.idarticle = q.idarticle
+    WHERE iduser = $1`;
+
+    const result = await client
+        .query(query,
+            [iduser]);
 
     res.send(JSON.stringify(result));
 
