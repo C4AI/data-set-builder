@@ -7,14 +7,31 @@
       url: '/abstract',
       data: { 'iduser': iduser },
       dataType: 'json',
+      tryCount : 0,
+      retryLimit : 3,
       success: function (response) {
         console.log(response)
         const { idarticle, abstract } = response.rows[0];
         $("#idarticle").empty().append(idarticle);
         $("#abstract").empty().append(abstract);
       },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
+      error : function(jqXHR, xhr, textStatus, errorThrown ) {
+        if (textStatus !== '') {
+          this.tryCount++;
+          if (this.tryCount <= this.retryLimit) {
+            //try again
+            $.ajax(this);
+            return;
+          }
+          return;
+        }
+        if (xhr.status === 500) {
+          //handle error
+          console.log(textStatus, errorThrown);
+
+        } else {
+          console.log(textStatus, errorThrown);
+        }
       }
     });
   });
@@ -28,33 +45,16 @@
       type: 'POST',
       url: '/abstract/reject',
       data: { 'iduser': iduser, 'idArticle': idArticle },
-      tryCount : 0,
-      retryLimit : 3,
       dataType: 'json',
       success: function (response) {
         console.log(response)
         window.location.href = './4-abstract.html'
       },
-        error : function(jqXHR, xhr, textStatus, errorThrown ) {
-          if (textStatus !== '') {
-            this.tryCount++;
-            if (this.tryCount <= this.retryLimit) {
-              //try again
-              $.ajax(this);
-              return;
-            }
-            return;
-          }
-          if (xhr.status === 500) {
-            //handle error
-            console.log(textStatus, errorThrown);
-
-          } else {
-            console.log(textStatus, errorThrown);
-          }
-       }
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown);
+      }
     });
-  });
+});
 
   $('#btnAceitou').on("click", function () {
 
