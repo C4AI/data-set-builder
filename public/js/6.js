@@ -16,7 +16,8 @@
           sumview,
           sumskip,
           sumreject,
-          sumanswer
+          sumanswer,
+          sumscore
         } = response.rows[0];
 
         $("#iduser").empty()   .append(iduser);
@@ -25,6 +26,8 @@
         $("#sumskip").empty()  .append(sumskip);
         $("#sumreject").empty().append(sumreject);
         $("#sumanswer").empty().append(sumanswer);
+        $("#sumscore").empty().append(sumscore);
+
       },
       error : function(jqXHR, xhr, textStatus, errorThrown ) {
         if (textStatus !== '') {
@@ -45,6 +48,13 @@
         }
       }
     });
+  });
+
+  $(window).ajaxComplete(function () {
+        const sumscore =  parseInt($("#sumscore").text());
+        if(sumscore>=30){
+          $("#btnContinuar").empty().append("Finalizar tarefa");
+        }
   });
 
   function testUser(){

@@ -76,10 +76,13 @@ app.get('/user/review', async (req, res) => {
         sum(v.view) as sumview,
         sum(v.skip) as sumskip,
         sum(v.reject) as sumreject,
-        sum(v.answer) as sumanswer
-    FROM user1 as u
+        sum(v.answer) as sumanswer,
+        sum(s.score) as sumscore
+        FROM user1 as u
     natural join view1 as v
-    where iduser = $1
+    inner join score as s
+    on v.answer = s.numanswer
+    where iduser = $1    
     group by u.iduser, u.email`;
 
     const result = await client
