@@ -11,7 +11,10 @@
       retryLimit : 3,
       success: function (response) {
         console.log(response)
-        const { idarticle, abstract } = response.rows[0];
+        const { idarticle, abstract, nquestions } = response.rows[0];
+        if(nquestions>1){
+          window.location.replace("5-question-answer.html")
+        }
         $("#idarticle").empty().append(idarticle);
         $("#abstract").empty().append(abstract);
       },

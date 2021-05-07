@@ -120,7 +120,7 @@ app.get('/abstract', async (req, res) => {
       ar.idarticle, 
 	  title,
       abstract,
-	  vi.answer+1 as nquestions
+      COALESCE(vi.answer, 1) as nquestions
     FROM article as ar
 	TABLESAMPLE SYSTEM(1) 
 	left join view1 as vi
