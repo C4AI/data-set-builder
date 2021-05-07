@@ -8,6 +8,8 @@
       url: '/abstract',
       data: {'iduser': iduser},
       dataType: 'json',
+      tryCount : 0,
+      retryLimit : 3,
       success: function (response) {
         console.log(response)
         const {abstract, idarticle, nquestions} = response.rows[0];
@@ -16,8 +18,23 @@
         $("#nquestions").empty().append(nquestions);
         localStorage.setItem('idarticle', response.rows[0].idarticle);
       },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
+      error : function(jqXHR, xhr, textStatus, errorThrown ) {
+        if (textStatus !== '') {
+          this.tryCount++;
+          if (this.tryCount <= this.retryLimit) {
+            //try again
+            $.ajax(this);
+            return;
+          }
+          return;
+        }
+        if (xhr.status === 500) {
+          //handle error
+          console.log(textStatus, errorThrown);
+
+        } else {
+          console.log(textStatus, errorThrown);
+        }
       }
     });
   });
