@@ -65,9 +65,9 @@
             text : element.title
           }));
         });
-
+        $('#idarticle').trigger("change");
       },
-      error : function(jqXHR, xhr, textStatus, errorThrown ) {
+    error : function(jqXHR, xhr, textStatus, errorThrown ) {
         if (textStatus !== '') {
           this.tryCount++;
           if (this.tryCount <= this.retryLimit) {
@@ -139,7 +139,6 @@
     });
 
   });
-
 
   function testUser(){
     const localStorage = window.localStorage
