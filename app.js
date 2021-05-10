@@ -364,7 +364,7 @@ app.get('/question-answer/article', async (req, res) => {
     const client = await pool.connect();
     const { iduser, idarticle } = req.query;
     const query = `
-    SELECT idqa 
+    SELECT *
     FROM questionanswer
 	WHERE iduser = $1 and idarticle = $2
 	order by idqa;`;
