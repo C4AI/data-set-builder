@@ -1,5 +1,6 @@
 (function ($) {
   "use strict";
+  const score = 15;
   $(window).one("load", function () {
     const iduser = testUser();
     $.ajax({
@@ -27,6 +28,7 @@
         $("#sumreject").empty().append(sumreject);
         $("#sumanswer").empty().append(sumanswer);
         $("#sumscore").empty().append(sumscore);
+        $("#score").empty().append(" / " + score);
 
       },
       error : function(jqXHR, xhr, textStatus, errorThrown ) {
@@ -91,7 +93,7 @@
 
   $(window).ajaxComplete(function () {
         const sumscore =  parseInt($("#sumscore").text());
-        if(sumscore>=30){
+        if(sumscore>=score){
           $("#btnContinuar").empty().append("Finalizar tarefa");
         }
   });
