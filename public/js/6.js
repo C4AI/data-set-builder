@@ -137,8 +137,18 @@
         }
       }
     });
-
   });
+
+  $('#btnEdit').on("click", function () {
+
+    const iduser = testUser();
+    const idarticle = $("#idarticle").val()
+    const idqa = $("#idqa").val()
+
+    window.location.href =
+        "7-question-answer-edit.html?iduser="+ iduser +"&idarticle="+ idarticle +"&idqa="+ idqa;
+  });
+
 
   function testUser(){
     const localStorage = window.localStorage
