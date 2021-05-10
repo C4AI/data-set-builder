@@ -11,12 +11,14 @@
       retryLimit : 3,
       success: function (response) {
         console.log(response)
-        const { idarticle, abstract, nquestions } = response.rows[0];
+        const { idarticle, title, abstract, nquestions } = response.rows[0];
         if(nquestions>1){
           window.location.replace("5-question-answer.html")
         }
         $("#idarticle").empty().append(idarticle);
+        $("#title").empty().append(title);
         $("#abstract").empty().append(abstract);
+
       },
       error : function(jqXHR, xhr, textStatus, errorThrown ) {
         if (textStatus !== '') {

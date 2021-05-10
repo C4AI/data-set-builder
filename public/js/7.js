@@ -14,8 +14,9 @@
       retryLimit : 3,
       success: function (response) {
         console.log(response)
-        const {abstract, idarticle} = response.rows[0];
+        const {title, abstract, idarticle} = response.rows[0];
         $("#idarticle").empty().append(idarticle);
+        $("#title").empty().append(title);
         $("#abstract").empty().append(abstract);
       },
       error : function(jqXHR, xhr, textStatus, errorThrown ) {
