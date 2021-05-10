@@ -48,6 +48,45 @@
         }
       }
     });
+
+    $.ajax({
+      type: 'GET',
+      url: '/question-answer/article/all',
+      data: {'iduser': iduser},
+      dataType: 'json',
+      tryCount : 0,
+      retryLimit : 3,
+      success: function (response) {
+        console.log(response)
+        $('#idarticle').empty();
+        $.each(response.rows, function (index, element) {
+          $('#idarticle').append($('<option/>', {
+            value: element.idarticle,
+            text : element.title
+          }));
+        });
+
+      },
+      error : function(jqXHR, xhr, textStatus, errorThrown ) {
+        if (textStatus !== '') {
+          this.tryCount++;
+          if (this.tryCount <= this.retryLimit) {
+            //try again
+            $.ajax(this);
+            return;
+          }
+          return;
+        }
+        if (xhr.status === 500) {
+          //handle error
+          console.log(textStatus, errorThrown);
+
+        } else {
+          console.log(textStatus, errorThrown);
+        }
+      }
+    });
+
   });
 
   $(window).ajaxComplete(function () {
@@ -56,6 +95,51 @@
           $("#btnContinuar").empty().append("Finalizar tarefa");
         }
   });
+
+  $('#idarticle').on("change", function () {
+    const iduser = testUser();
+
+    $.ajax({
+      type: 'GET',
+      url: '/question-answer/article',
+      data: {'iduser': iduser, 'idarticle': this.value},
+      dataType: 'json',
+      tryCount : 0,
+      retryLimit : 3,
+      success: function (response) {
+        console.log(response)
+
+        $('#idqa').empty();
+        $.each(response.rows, function (index, element) {
+          $('#idqa').append($('<option/>', {
+            value: element.idqa,
+            text : index+1
+          }));
+        });
+
+      },
+      error : function(jqXHR, xhr, textStatus, errorThrown ) {
+        if (textStatus !== '') {
+          this.tryCount++;
+          if (this.tryCount <= this.retryLimit) {
+            //try again
+            $.ajax(this);
+            return;
+          }
+          return;
+        }
+        if (xhr.status === 500) {
+          //handle error
+          console.log(textStatus, errorThrown);
+
+        } else {
+          console.log(textStatus, errorThrown);
+        }
+      }
+    });
+
+  });
+
 
   function testUser(){
     const localStorage = window.localStorage

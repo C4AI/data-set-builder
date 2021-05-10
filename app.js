@@ -265,18 +265,62 @@ app.post('/question-answer', async (req, res) => {
   }
 })
 
+app.put('/question-answer', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { questionen, answeren, questionpt, answerpt, iduser, idarticle, idqa } = req.body;
+    const query1 = `
+      INSERT INTO public.questionanswer(
+                                        questionen, 
+                                        answeren, 
+                                        questionpt, 
+                                        answerpt, 
+                                        idqa, 
+                                        date, 
+                                        iduser, 
+                                        idarticle)
+      VALUES ( $1 ,$2, $3, $4,
+              $7, (SELECT CURRENT_DATE),$5, $6)
+      ON CONFLICT (idqa) DO UPDATE SET (
+                                        questionen,
+                                        answeren,
+                                        questionpt,
+                                        answerpt
+                                         )=
+                                         (EXCLUDED.questionen,
+                                          EXCLUDED.answeren,
+                                          EXCLUDED.questionpt,
+                                          EXCLUDED.answerpt)
+      WHERE questionanswer.iduser = $5
+        and questionanswer.idarticle = $6
+        and questionanswer.idqa = $7;`
+
+    const result = await client
+        .query(query1,
+            [questionen, answeren, questionpt, answerpt,
+              iduser, idarticle, idqa]);
+
+    res.send(JSON.stringify(result));
+
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
 app.get('/question-answer', async (req, res) => {
   try {
     const client = await pool.connect();
-    const { iduser, idqa } = req.body;
+    const { iduser, idqa, idarticle } = req.body;
     const query = `
     SELECT * 
     FROM questionanswer
-	WHERE iduser = $1 and idqa = $2`;
+	WHERE iduser = $1 and idqa = $2 and idarticle = $3`;
 
     const result = await client
         .query(query,
-            [iduser, idqa]);
+            [iduser, idqa, idarticle]);
 
     res.send(JSON.stringify(result));
 
@@ -290,7 +334,7 @@ app.get('/question-answer', async (req, res) => {
 app.get('/question-answer/article', async (req, res) => {
   try {
     const client = await pool.connect();
-    const { iduser, idarticle } = req.body;
+    const { iduser, idarticle } = req.query;
     const query = `
     SELECT idqa 
     FROM questionanswer
@@ -312,7 +356,7 @@ app.get('/question-answer/article', async (req, res) => {
 app.get('/question-answer/article/all', async (req, res) => {
   try {
     const client = await pool.connect();
-    const { iduser } = req.body;
+    const { iduser } = req.query;
     const query = `
     SELECT
     distinct q.idarticle,
