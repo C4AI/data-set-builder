@@ -389,6 +389,7 @@ app.get('/question-answer/article/all', async (req, res) => {
     const query = `
     SELECT
     distinct q.idarticle,
+             q.idqa,
              a.title
     FROM questionanswer as q
     inner join article as a
