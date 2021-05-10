@@ -196,6 +196,33 @@ app.get('/abstract', async (req, res) => {
   }
 })
 
+app.get('/abstract/one', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { idarticle } = req.query;
+
+    const query1 = `    
+    SELECT
+	  idarticle,
+      title,
+      abstract
+    FROM article 
+    where idarticle = $1
+    LIMIT 1;`
+
+    const result = await client
+        .query(query1,
+            [idarticle]);
+
+      res.send(JSON.stringify(result));
+
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
 app.post('/abstract/reject', async (req, res) => {
   try {
     const client = await pool.connect();
@@ -240,7 +267,7 @@ app.post('/abstract/skip', async (req, res) => {
   }
 })
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////QA///////////////////////////////////////////////////////////////
 app.post('/question-answer', async (req, res) => {
   try {
     const client = await pool.connect();
@@ -312,11 +339,12 @@ app.put('/question-answer', async (req, res) => {
 app.get('/question-answer', async (req, res) => {
   try {
     const client = await pool.connect();
-    const { iduser, idqa, idarticle } = req.body;
+    const { iduser, idqa, idarticle } = req.query;
     const query = `
     SELECT * 
     FROM questionanswer
-	WHERE iduser = $1 and idqa = $2 and idarticle = $3`;
+	WHERE iduser = $1 and idqa = $2 and idarticle = $3
+	order by idqa;`;
 
     const result = await client
         .query(query,
@@ -338,7 +366,8 @@ app.get('/question-answer/article', async (req, res) => {
     const query = `
     SELECT idqa 
     FROM questionanswer
-	WHERE iduser = $1 and idarticle = $2`;
+	WHERE iduser = $1 and idarticle = $2
+	order by idqa;`;
 
     const result = await client
         .query(query,
@@ -364,7 +393,8 @@ app.get('/question-answer/article/all', async (req, res) => {
     FROM questionanswer as q
     inner join article as a
     on a.idarticle = q.idarticle
-    WHERE iduser = $1`;
+    WHERE iduser = $1
+    order by q.idqa;`;
 
     const result = await client
         .query(query,

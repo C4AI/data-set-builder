@@ -113,7 +113,7 @@
         $.each(response.rows, function (index, element) {
           $('#idqa').append($('<option/>', {
             value: element.idqa,
-            text : index+1
+            text : element.idqa
           }));
         });
 
@@ -141,12 +141,11 @@
 
   $('#btnEdit').on("click", function () {
 
-    const iduser = testUser();
     const idarticle = $("#idarticle").val()
     const idqa = $("#idqa").val()
 
     window.location.href =
-        "7-question-answer-edit.html?iduser="+ iduser +"&idarticle="+ idarticle +"&idqa="+ idqa;
+        "7-question-answer-edit.html?idarticle="+ idarticle +"&idqa="+ idqa;
   });
 
 
