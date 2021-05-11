@@ -159,6 +159,7 @@ app.get('/abstract', async (req, res) => {
 	left join view1 as vi
 	on ar.idarticle = vi.idarticle
 	where 
+    ar.active = true and 
 	vi.idarticle is null or (
     vi.iduser!=$1 and 
 	vi.reject=0 and
