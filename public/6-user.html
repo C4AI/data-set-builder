@@ -14,45 +14,45 @@
 <body>
 <div class="limiter">
     <div class="container-login100">
-        <div class="wrap-login100 p-l-50 p-t-55 p-b-55">
+        <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
             <form class="login100-form validate-form flex-sb flex-w">
-                <div class="login100-form-title p-b-10 p-l-85">
+                <div class="login100-form-title">
                     Dados do usuário
                 </div>
-                <div class="p-r-85 p-t-15 p-b-15">
+                <div class="p-t-15 p-b-15">
                     <div class="txt5 p-b-11">
                         RESUMO
                     </div>
                     <div>
-					    <span class="txt1 p-b-11">
+					    <span class="txt1">
 					    	Email
 					    </span>
-                        <span class="txt3 p-b-11" id="email"></span>
+                        <span class="txt3" id="email"></span>
                     </div>
 
                     <div>
-						<span class="txt1 p-b-11">
+						<span class="txt1">
 							Número USP
 						</span>
-                        <span class="txt3 p-b-11" id="iduser"></span>
+                        <span class="txt3" id="iduser"></span>
                     </div>
 
                     <div>
-						<span class="txt1 p-b-11">
+						<span class="txt1">
 							Perguntas e respostas já desenvolvidas
 						</span>
-                        <span class="txt3 p-b-11" id="sumanswer"></span>
+                        <span class="txt3" id="sumanswer"></span>
                     </div>
                     <div>
-						<span class="txt1 p-b-11">
+						<span class="txt1">
 							Pontos Acumulados
 						</span>
-                        <span class="txt3 p-b-11" id="sumscore"></span>
-                        <span class="txt3 p-b-11" id="score"></span>
+                        <span class="txt3" id="sumscore"></span>
+                        <span class="txt3" id="score"></span>
                     </div>
                 </div>
 
-                <div class="p-r-85 p-t-15 p-b-15">
+                <div class="p-r-85 p-b-15">
                     <div class="txt5 p-b-11">
                         Edite Perguntas e respostas
                     </div>
@@ -62,19 +62,19 @@
 					    	Título do artigo a ser editado
 					    </span>
                     </div>
-                    <div>
+                    <div class="p-b-11" style="display:inline-block;max-width:100%;">
                         <label for="idarticle"></label>
-                        <select id="idarticle" class="txt1 p-b-5 p-t-5">
+                        <select id="idarticle" class="txt1 p-b-5 p-t-5" style="width:100%">
                         </select>
                     </div>
                     <div>
 					    <span class="txt1 p-b-11">
-					    	Número da pergunta/resposta a ser editada
+					    	Pergunta/Resposta a ser editada
 					    </span>
                     </div>
-                    <div>
+                    <div class="p-b-11" style="display:inline-block;max-width:100%;">
                         <label for="idqa"></label>
-                        <select id="idqa" class="txt1 p-b-11">
+                        <select id="idqa" class="txt1 p-b-11" style="width:100%">
                         </select>
                     </div>
                     <div>
@@ -84,12 +84,26 @@
                     </div>
                 </div>
 
-                <div class="container-login100-form-btn">
+                <div class="txt1 p-b-10 p-t-10">
+                    Se ainda não desenvolveu 3 perguntas/respostas
+                    para o último resumo visualizado,
+                    você será novamente direcionado a ele.
+                    Do contrário, sera direcionado a um novo resumo.
+                </div>
+
+                <div class="container-login100-form-btn p-l-57 p-r-88 p-t-15 p-b-15">
                     <a href="4-abstract.html">
                         <button class="login100-form-btn" type="button">
                             Continuar respondendo
                         </button>
                     </a>
+                </div>
+
+                <div class="txt1 p-b-10 p-t-10">
+                    Se desejar, poderá finalizar a tarefa agora e continuar em outro momento.
+                </div>
+
+                <div class="container-login100-form-btn p-l-88 p-r-88 p-t-15">
                     <a href="99-end.html">
                         <button class="login100-form-btn" id="btnContinuar" type="button">
                             Continuar depois
