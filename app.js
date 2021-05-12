@@ -360,6 +360,29 @@ app.get('/question-answer', async (req, res) => {
   }
 })
 
+
+app.delete('/question-answer', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const { iduser, idqa, idarticle } = req.body;
+    const query = `
+    DELETE
+    FROM questionanswer
+	WHERE iduser = $1 and idqa = $2 and idarticle = $3`;
+
+    const result = await client
+        .query(query,
+            [iduser, idqa, idarticle]);
+
+    res.send(JSON.stringify(result));
+
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
 app.get('/question-answer/article', async (req, res) => {
   try {
     const client = await pool.connect();

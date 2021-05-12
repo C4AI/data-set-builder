@@ -150,6 +150,59 @@
         "7-question-answer-edit.html?idarticle="+ idarticle +"&idqa="+ idqa;
   });
 
+  $('#btnDelete').on("click", function () {
+
+    const title = $("#idarticle option:selected").text()
+    const qa = $("#idqa option:selected").text()
+
+    const idartitle = $("#idarticle").val()
+    const idqa = $("#idqa").val()
+
+    if (window.confirm(
+        "Confirma a remoção da pergunta "
+        + '"' + qa + '"'+
+        " referente ao artigo "
+        + '"' + title  + '"' +
+        " ? Essa ação é ireversível."
+    )) {
+      deleteQA(idartitle, idqa);
+    }
+  });
+
+  function deleteQA (idarticle, idqa){
+    const iduser = testUser();
+    $.ajax({
+      type: 'DElETE',
+      url: '/question-answer',
+      data: {'iduser': iduser, 'idarticle': idarticle, 'idqa': idqa},
+      dataType: 'json',
+      tryCount : 0,
+      retryLimit : 3,
+      success: function (response) {
+        console.log(response)
+        window.alert("Registro removido com sucesso!")
+        window.location.href = './6-user.html'
+      },
+      error : function(jqXHR, xhr, textStatus, errorThrown ) {
+        if (textStatus !== '') {
+          this.tryCount++;
+          if (this.tryCount <= this.retryLimit) {
+            //try again
+            $.ajax(this);
+            return;
+          }
+          return;
+        }
+        if (xhr.status === 500) {
+          //handle error
+          console.log(textStatus, errorThrown);
+
+        } else {
+          console.log(textStatus, errorThrown);
+        }
+      }
+    });
+  }
 
   function testUser(){
     const localStorage = window.localStorage
