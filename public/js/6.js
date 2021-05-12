@@ -148,13 +148,13 @@
 
         if (idarticle != null &&
             idqa != null &&
-            idarticle.trim().length > 0 &&
-            idqa.trim().length > 0
+            idarticle.length > 0 &&
+            idqa.length > 0
         ) {
             window.location.href =
                 "7-question-answer-edit.html?idarticle=" + idarticle + "&idqa=" + idqa;
         } else {
-            window.alert("Não há pergunta selecionada para edição.")
+            window.alert("Não há perguntas para edição.")
         }
     });
 
@@ -168,8 +168,8 @@
 
         if (idarticle != null &&
             idqa != null &&
-            idarticle.trim().length > 0 &&
-            idqa.trim().length > 0
+            idarticle.length > 0 &&
+            idqa.length > 0
         ) {
             if (window.confirm(
                 "Confirma a remoção da pergunta "
@@ -181,7 +181,7 @@
                 deleteQA(idartitle, idqa);
             }
         } else {
-            window.alert("Não há pergunta seleciona para serem exclusão.")
+            window.alert("Não há perguntas para exclusão.")
         }
 
     });
