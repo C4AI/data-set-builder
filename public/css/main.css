@@ -186,6 +186,16 @@ iframe {
   margin-bottom: 10px;
   
 }
+.txt5 {
+  font-family: Raleway-SemiBold;
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.4;
+  text-align: justify;
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+
 
 table, th, td {
   text-align: center;
