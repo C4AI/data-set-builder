@@ -115,7 +115,7 @@
         $.each(response.rows, function (index, element) {
           $('#idqa').append($('<option/>', {
             value: element.idqa,
-            text : element.answeren
+            text : element.questionen
           }));
         });
 
