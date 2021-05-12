@@ -176,7 +176,7 @@
                 + '"' + qa + '"' +
                 " referente ao artigo "
                 + '"' + title + '"' +
-                " ? Essa ação é ireversível."
+                " ? Essa ação é irreversível."
             )) {
                 deleteQA(idartitle, idqa);
             }
