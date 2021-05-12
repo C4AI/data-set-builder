@@ -9,24 +9,6 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <!--===============================================================================================-->
-    <link href="images/icons/favicon.ico" rel="icon" type="image/png"/>
-    <!--===============================================================================================-->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <!--===============================================================================================-->
-    <link href="fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!--===============================================================================================-->
-    <link href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css" rel="stylesheet" type="text/css">
-    <!--===============================================================================================-->
-    <link href="vendor/animate/animate.css" rel="stylesheet" type="text/css">
-    <!--===============================================================================================-->
-    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" type="text/css">
-    <!--===============================================================================================-->
-    <link href="vendor/animsition/css/animsition.min.css" rel="stylesheet" type="text/css">
-    <!--===============================================================================================-->
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" type="text/css">
-    <!--===============================================================================================-->
-    <link href="vendor/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css">
-    <!--===============================================================================================-->
     <link href="css/util.css" rel="stylesheet" type="text/css">
     <link href="css/main.css" rel="stylesheet" type="text/css">
     <!--===============================================================================================-->
@@ -37,48 +19,51 @@
     <div class="container-login100">
         <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
             <form class="login100-form validate-form flex-sb flex-w">
+                <div class="login100-form-title p-b-32">
+                    Validação do Abstract
+                </div>
 
-          <span class="login100-form-title p-b-32">
-            Validação do Abstract
-          </span>
+                <div id=idarticle style="display:none">
+                </div>
 
-                <span id=idarticle style="display:none">
-            $idarticle
-          </span>
-                <div><span class="txt1" id=title></span></div>
+                <div class="txt1 p-b-10" id=title>
+                </div>
 
-                <span class="txt4" id=abstract></span>
+                <div class="txt4" id=abstract>
+                </div>
 
-                <div class="container-login100-form-btn p-l-88 p-r-88 p-t-5 p-b-5">
+                <div class="container-login100-form-btn p-l-88 p-r-88 p-t-5 p-b-15">
                     <button class="login100-form-btn" id="btnAceitou" type="button">
                         Aceitar o artigo
                     </button>
                 </div>
-              <div>
-                <span class="txt3 p-b-11">
-                        Rejeite o resumo se ele não possuir relação com os seguintes temas:
-                  <ul>
-                    <li><b>Costa marítima brasileira.</b></li>
-                    <li><b>Empresas atuantes na costa marítima brasileira.</b></li>
-                    <li><b>Estudos com dados obtidos na costa marítima brasileira.</b></li>
-                    <li><b>Atuações internacionais na costa marítima brasileira.</b></li>
-                    <li><b>Exploração/estudo de petróleo na costa marítima brasileira.</b></li>
-                  </ul>
-                </span>
-              </div>
-              <div class="container-login100-form-btn p-l-88 p-r-88 p-t-5 p-b-5">
-              <button class="login100-form-btn" id="btnRejeitar" type="button">
+
+                <div class="txt3">
+                    Rejeite o resumo se ele não possuir relação com os seguintes temas:
+                    <ul>
+                        <li><b>Costa marítima brasileira.</b></li>
+                        <li><b>Empresas atuantes na costa marítima brasileira.</b></li>
+                        <li><b>Estudos com dados obtidos na costa marítima brasileira.</b></li>
+                        <li><b>Atuações internacionais na costa marítima brasileira.</b></li>
+                        <li><b>Exploração/estudo de petróleo na costa marítima brasileira.</b></li>
+                    </ul>
+                </div>
+
+                <div class="container-login100-form-btn p-l-88 p-r-88 p-t-5 p-b-5">
+                    <button class="login100-form-btn" id="btnRejeitar" type="button">
                         Rejeitar o artigo
                     </button>
-               </div>
+                </div>
+
                 <div class="flex-sb-m w-full p-b-30 p-t-30">
                     <a class="txt3" href="8-instructions-lite.html" target="_blank">
                         Acesse novamente as instruções se tiver alguma dúvida.
                     </a>
                 </div>
-        </form>
+
+            </form>
+        </div>
     </div>
-</div>
 </div>
 
 </body>
