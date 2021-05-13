@@ -49,7 +49,6 @@
       },
       dataType: 'json',
       success: function (response) {
-        console.log(response)
         const {idqa,
           questionen,
           answeren,
@@ -119,7 +118,6 @@
       },
       dataType: 'json',
       success: function (response) {
-        console.log(response)
         window.location.href = './6-user.html'
       },
       error: function (jqXHR, textStatus, errorThrown) {

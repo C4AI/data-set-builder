@@ -1,6 +1,9 @@
 (function ($) {
     "use strict";
     const score = 15;
+    $(document).ready(function() {
+        $('.select').select2();
+    });
     $(window).one("load", function () {
         const iduser = testUser();
         $.ajax({
@@ -11,7 +14,6 @@
             tryCount: 0,
             retryLimit: 3,
             success: function (response) {
-                console.log(response)
                 const {
                     email,
                     sumview,
@@ -59,7 +61,6 @@
             tryCount: 0,
             retryLimit: 3,
             success: function (response) {
-                console.log(response)
                 $('#idarticle').empty();
                 $.each(response.rows, function (index, element) {
                     $('#idarticle').append($('<option/>', {
@@ -109,7 +110,6 @@
             tryCount: 0,
             retryLimit: 3,
             success: function (response) {
-                console.log(response)
 
                 $('#idqa').empty();
                 $.each(response.rows, function (index, element) {
@@ -196,7 +196,6 @@
             tryCount: 0,
             retryLimit: 3,
             success: function (response) {
-                console.log(response)
                 window.alert("Registro removido com sucesso!")
                 window.location.href = './6-user.html'
             },
