@@ -10,7 +10,6 @@
       tryCount : 0,
       retryLimit : 3,
       success: function (response) {
-        console.log(response)
         const {abstract, title, idarticle, nquestions} = response.rows[0];
         $("#idarticle").empty().append(idarticle);
         $("#title").empty().append(title);
@@ -80,7 +79,6 @@
       },
       dataType: 'json',
       success: function (response) {
-        console.log(response)
         window.location.href = './6-user.html'
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -99,7 +97,6 @@
       data: { 'iduser': iduser, 'idArticle': idArticle },
       dataType: 'json',
       success: function (response) {
-        console.log(response)
         window.location.href = './4-abstract.html'
       },
       error: function (jqXHR, textStatus, errorThrown) {

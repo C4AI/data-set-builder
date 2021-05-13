@@ -67,7 +67,6 @@
       data: { 'iduser': iduser, 'email': email },
       dataType: 'json',
       success: function (response) {
-        console.log(response)
         var rowCount = response.rowCount;
         const localStorage = window.localStorage
         if (rowCount === 1) {

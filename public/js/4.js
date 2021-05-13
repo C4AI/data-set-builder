@@ -10,7 +10,6 @@
       tryCount : 0,
       retryLimit : 3,
       success: function (response) {
-        console.log(response)
         const { idarticle, title, abstract, nquestions } = response.rows[0];
         if(nquestions>1){
           window.location.replace("5-question-answer.html")
@@ -52,7 +51,6 @@
       data: { 'iduser': iduser, 'idArticle': idArticle },
       dataType: 'json',
       success: function (response) {
-        console.log(response)
         window.location.href = './4-abstract.html'
       },
       error: function (jqXHR, textStatus, errorThrown) {
