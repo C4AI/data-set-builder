@@ -150,7 +150,7 @@ app.get('/abstract', async (req, res) => {
                      left join view1 as vi
                                on ar.idarticle = vi.idarticle
             where ar.active is true
-/*
+
               and (
                     vi.idarticle is null or
                     (
@@ -159,7 +159,7 @@ app.get('/abstract', async (req, res) => {
                             vi.answer < 3
                         )
                 )
-*/  
+  
             LIMIT 1;`
 
         const query3 = `
