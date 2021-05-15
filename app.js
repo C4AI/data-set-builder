@@ -143,23 +143,13 @@ app.get('/abstract', async (req, res) => {
         const query2 = `
             SELECT ar.idarticle,
                    title,
-                   abstract,
-                   COALESCE(vi.answer, 1) as nquestions
+                   abstract
             FROM article as ar
                      TABLESAMPLE SYSTEM(1)
-                     left join view1 as vi
-                               on ar.idarticle = vi.idarticle
-            where ar.active is true
-
-              and (
-                    vi.idarticle is null or
-                    (
-                            vi.iduser != $1 and
-                            vi.reject = 0 and
-                            vi.answer < 3
-                        )
-                )
-  
+            where ar.idarticle not in 
+                  
+            (select idarticle from questionanswer)
+            
             LIMIT 1;`
 
         const query3 = `
@@ -174,8 +164,7 @@ app.get('/abstract', async (req, res) => {
             res.send(JSON.stringify(result1));
         else {
             const result2 = await client
-                .query(query2,
-                    [iduser]);
+                .query(query2);
 
             const idArticle = result2.rows[0].idarticle;
 
