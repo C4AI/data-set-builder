@@ -1,6 +1,6 @@
 (function ($) {
     "use strict";
-    const score = 15;
+    const score = 8;
     $(document).ready(function() {
         $('.select').select2({ width: '100%' });
     });
