@@ -136,7 +136,7 @@ app.get('/abstract', async (req, res) => {
             where view = 1
               and reject = 0
               and skip = 0
-              and answer < 3
+              and answer < 2
               and iduser = $1
             LIMIT 1;`
 
