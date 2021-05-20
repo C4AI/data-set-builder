@@ -86,24 +86,6 @@
       }
     });
   }
-  $('#btnPular').on("click", function () {
-
-    const iduser = testUser();
-    const idArticle = $("#idarticle").text()
-
-    $.ajax({
-      type: 'POST',
-      url: '/abstract/skip',
-      data: { 'iduser': iduser, 'idArticle': idArticle },
-      dataType: 'json',
-      success: function (response) {
-        window.location.href = './4-abstract.html'
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
-      }
-    });
-  });
 
   function testUser(){
     const localStorage = window.localStorage
