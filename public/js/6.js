@@ -174,7 +174,7 @@
             if (window.confirm(
                 "Confirma a remoção da pergunta "
                 + '"' + qa + '"' +
-                " referente ao artigo "
+                " referente ao texto "
                 + '"' + title + '"' +
                 " ? Essa ação é irreversível."
             )) {
