@@ -23,7 +23,7 @@ server.listen(porta, function () {
 
 ///////////////////////////////DATABASE//////////////////////////////////////////
 
-const connectionString = 'postgresql://postgres:123456@localhost:5432/data-set-builder'
+const connectionString = 'postgresql://postgres:123456@localhost:5432/dataset-b'
 
 const {Pool} = require('pg');
 const pool = new Pool({
@@ -143,13 +143,13 @@ app.get('/abstract', async (req, res) => {
         const query2 = `
             SELECT ar.idarticle,
                    title,
-                   abstract
+                   abstract,
+                   1 as nquestions
             FROM article as ar
-                     TABLESAMPLE SYSTEM(1)
-            where ar.idarticle not in 
-                  
-            (select idarticle from questionanswer)
-            
+            where ar.idarticle not in
+                  (select idarticle from questionanswer where iduser = $1)
+
+            ORDER BY random()
             LIMIT 1;`
 
         const query3 = `
@@ -160,11 +160,11 @@ app.get('/abstract', async (req, res) => {
             .query(query1,
                 [iduser]);
 
-        if (result1.rowCount === 1)
+        if (result1.rowCount >= 1)
             res.send(JSON.stringify(result1));
         else {
             const result2 = await client
-                .query(query2);
+                .query(query2,[iduser]);
 
             const idArticle = result2.rows[0].idarticle;
 
