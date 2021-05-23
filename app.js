@@ -404,7 +404,8 @@ app.get('/question-answer/article/all', async (req, res) => {
         const {iduser} = req.query;
         const query = `
             SELECT distinct q.idarticle,
-                            a.title
+                            replace(a.title, '<br>', ' ') as title
+                            
             FROM questionanswer as q
                      inner join article as a
                                 on a.idarticle = q.idarticle
