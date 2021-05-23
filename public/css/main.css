@@ -71,12 +71,16 @@ a:active {
 
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
-	margin: 0px;
+  font-family: Raleway-Regular;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666666;
+  margin: 0px;
 }
 
 p {
 	font-family: Raleway-Regular;
-	font-size: 14px;
+	font-size: 13px;
 	line-height: 1.7;
 	color: #666666;
 	margin: 0px;
@@ -183,6 +187,7 @@ iframe {
 }
 .txt5 {
   font-family: Raleway-SemiBold;
+  white-space: initial;
   font-size: 15px;
   color: #555555;
   line-height: 1.4;
