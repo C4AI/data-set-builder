@@ -94,10 +94,10 @@ app.get('/user/review', async (req, res) => {
 app.post('/user', async (req, res) => {
     const client = await pool.connect();
     try {
-        const {iduser, name, email, dateInsert, userAgreeTCLE} = req.body;
+        const {iduser, name, email, dateInsert, userAgreeTCLE, idTeam} = req.body;
         const result = await client
-            .query('INSERT INTO user1(iduser,name, email, dateinsert, useragreetlce) VALUES($1,$2,$3,$4,$5)',
-                [iduser, name, email, dateInsert, userAgreeTCLE]
+            .query('INSERT INTO user1(iduser,name, email, dateinsert, useragreetlce, idteam) VALUES($1,$2,$3,$4,$5,$6)',
+                [iduser, name, email, dateInsert, userAgreeTCLE, idTeam]
             );
         res.send(JSON.stringify(result));
     } catch (err) {
